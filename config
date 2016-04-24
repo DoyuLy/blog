@@ -87,7 +87,7 @@ GIT:
         git push origin  本地分支与远程分支有追踪关系,则可以省略本地与远程分支名
         git push 若只有一个追踪的分支 则关系是确定唯一的, 所有都可以省略
 
-   git push -u origin 1.0.1 推送1.0.1本地分支到origin主机, 同时设置默认主机为origin , 以后直接就可以git push
+   git push -u origin 1.0.1 推送1.0.1本地分支到origin主机, 同时设置默认主机为origin , 以后直接就可以git push(-u 是设置默认的upstream, 即在多个远程主机仓库存在时默认提交的仓库)
 
 
 
