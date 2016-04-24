@@ -22,6 +22,7 @@
     "passport": "*",
     "passport-github": "*",
     "mongoose": "*",
-    "async": "*"
+    "async": "*",
+    "express-handlebars": "*"
   }
 }

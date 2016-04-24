@@ -16,6 +16,7 @@ var errorLog = fs.createWriteStream('error.log', {flags: 'a'});
 
 var passport = require('passport');
 var GithubStrategy = require('passport-github').Strategy;
+var hbs = require('express-handlebars');
 
 var routes = require('./routes/index');
 var settings = require('./settings');
@@ -26,6 +27,14 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+//设置模板为hbs
+//app.engine('hbs', exphbs({
+//  layoutsDir: 'views',
+//  defaultLayout: 'layout',//layout.hbs
+//  extname:'.hbs'
+//}));
+//app.set('view engine', 'hbs');
+
 app.use(flash());
 //app.set('env', 'production');
 
