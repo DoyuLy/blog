@@ -1,0 +1,108 @@
+npm install -g express-generator
+express -e express-demo
+cd express-demo && npm install
+npm install -g supervisor
+DEBUG=blog ./bin/www  or  supervisor ./bin/www
+
+#############################
+req.query : deal with GET
+req.body  : deal with POST  eg: user[name]=xxx&user[email]=xxx => req.body.user.name
+req.params: deal with '/:xxx' URI params
+req.param : deal with GET and POST [priority: req.params -> req.body -> req.query]
+#############################
+1> ejs
+   <% code %> : javascript code
+   <%= code %>: no html encode
+   <%- code %>: has html encode  [eg: <%- include xxx.ejs%>]
+
+#############################
+module:
+1. connect-flash
+#############################
+www.heroku.com [psw: duyu2008]
+client: https://toolbelt.heroku.com
+git bash : hreoku login  duyud@qq.com duyu2008
+#安装插件升级heroku-cli(貌似升级不了heroku-cli)
+heroku plugins:install https://github.com/ddollar/heroku-push
+heroku push
+#或者生成heroku的ssh-key
+heroku keys:add ~/.ssh/heroku_rsa.pub
+vi ~/.ssh/config
+#添加如下
+Host heroku.com
+IdentityFile ~/.ssh/heroku_rsa
+#############################
+###########方案1 : ssh
+ #生成ssh key
+ ssh-keygen -t rsa -C "duyud@qq.com" 三个回车(密码为空)
+ #保证在~目录下, 生成2个文件  id_rsa  id_rsa.pub
+ #windows 的根目录在当前用户目录
+ heroku keys:add ~/.ssh/id_rsa.pub //添加ssh key 到heroku (会有邮件提醒)
+ #配置~/.ssh/config
+ Host heroku.com
+ User duyu
+ Hostname 107.21.95.3
+ PreferredAuthentications publickey
+ IdentifyFile ~/.ssh/id_rsa
+ port 22
+ ###########方案2 : https
+ cd my-project/
+ git init
+ git remote heroku https://git.heroku.com/doyo.git
+#############################
+GIT:
+1> remote
+   git remote : 列出远程所有主机
+   git remote -v : 列出远程主机的网址
+   [ps: clone的时候,远程主机被git自动命名为origin,若需重命名远程主机名 git clone -o <自定义远程主机名> <地址>]
+   git remote show <远程主机名> : 列出远程主机的详情
+   git remote add <远程主机名> <地址> : 添加远程主机
+   git remote rm <远程主机名> : 删除远程主机
+   git remote rename <原远程主机名> <新远程主机名> : 修改主机名
+   git remote update 更新本地主机到远程主机
+2> fetch
+   git fetch 取回所有分支
+   git fetch <远程主机名> <分支名>  -> eg : get fetch origin master 获取origin主机下的master主分支
+   [注意取回的更新要使用 "远程主机名/分支名" 形式读取 如: origin/master; fetch 不会自动merge]
+3> branch
+   git branch -r : 查看远程分支
+   git branch -a : 查看远程与本地所有分支
+
+4> checkout
+   git checkout -b <新分支名> origin/master [意思是在origin/master的基础上, 创建一个新分支,并切换到创建的分支]
+5> pull
+   git pull <远程主机名> <远程分支名>:<本地分支名>
+      eg : git pull origin 1.0.1:master [取回origin主机的1.0.1分支，与本地指定的master分支合并]
+      若与当前分支合并,则最后一个<本地分支>可省略 --> git pull origin 1.0.1 ≈
+                                                      git fetch origin && git merge origin/1.0.1(当前本地分支与origin/1.0.1合并)
+   【注意】 git会自动追踪本地与远程的同名分支 比如: 本地"master"自动追踪"origin/master" ;所以同名分支连远程分支名都可省略 --> git pull origin
+            若各个远程主机下的分支名不重复(即只有一个同名默认追踪分支), 连远程主机名也可省略 --> git pull
+   git pull -p : 若远程主机的分支被删除, 对应的本地分支不会删除, 防止误删 ; 若要硬性删除对应本地分支 加上 -p
+
+6> push
+   git push <远程主机名> <本地分支名>:<远程分支名>
+   eg : git push origin 1.0.1:1.0.1  即推送本地分支1.0.1 到 origin主机下的1.0.1分支; 若远程主机不存在当前分支,则新建(最好分支名都一致, 会自动追踪)
+        git push origin 1.0.1 省略远程分支名, 则表示默认推送到有追踪关系的分支,通常同名
+        git push origin :1.0.1 省略本地分支(即为空), 表示删除远程origin/1.0.1分支 --> ≈ git push origin --delete 1.0.1
+        git push origin  本地分支与远程分支有追踪关系,则可以省略本地与远程分支名
+        git push 若只有一个追踪的分支 则关系是确定唯一的, 所有都可以省略
+
+   git push -u origin 1.0.1 推送1.0.1本地分支到origin主机, 同时设置默认主机为origin , 以后直接就可以git push
+
+
+
+   最佳实践: 最好只有一个origin远程主机,所有的分支都挂接到origin主机下, 避免多个远程主机下有同名分支导致自动追踪需要手动指定远程主机或者分支名
+   git init
+   git add .
+   git commit -m 'init'
+   git remote add origin https://github.com/DoyuLy/backbone.git
+   git branch <本地分支名> 创建本地分支
+   git checkout <本地分支名> 切换到本地分支
+   git checkout -b <本地分支名> origin/master   [origin/master的基础上, 创建一个新分支,并切换到创建的分支]
+   git push origin --delete 1.0.1 删除远程分支(不会删除本地)
+   git branch -d <本地分支名> 删除本地分支
+   git push origin <本地分支名>                 [可省略":<远程分支名>", 因为会自定切换到1.0.1本地分支下; 若没有则自动创建]
+
+   git push 在git2.0以后默认为simple方式, 只推送当前所在的本地分支
+
+

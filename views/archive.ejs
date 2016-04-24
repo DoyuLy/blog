@@ -1,0 +1,14 @@
+<%- include header %>
+<!-- 相同则不显示年份 -->
+ <ul class="archive">
+     <% var lastYear = 0%>
+     <% pubs.forEach(function (pub, i) { %>
+        <% if(lastYear != pub.time.year){ %>
+            <li><h3><%= pub.time.year %></h3></li>
+        <% lastYear = pub.time.year } %>
+
+        <li><time><%= pub.time.day %></time></li>
+        <li><a href="/u/<%= pub.name%>/<%= pub.time.day %>/<%= pub.title %>"><%= pub.title %></a></li>
+     <% }) %>
+ </ul>
+<%- include footer %>

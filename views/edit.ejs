@@ -1,0 +1,11 @@
+<%- include header %>
+ <form method="post">
+     标题：<input type="text" name="title" value="<%= pub.title %>" disabled="disabled"/><br/>
+     标签：<br/>
+     <input type="text" name="tag1" value="<%= pub.tags[0] %>" disabled="disabled"/>
+     <input type="text" name="tag2" value="<%= pub.tags[1] %>" disabled="disabled"/>
+     <input type="text" name="tag3" value="<%= pub.tags[2] %>" disabled="disabled"/><br/>
+     正文：<textarea name="content" rows="20" cols="100"><%= pub.content %></textarea><br/>
+     <input type="submit" value="修改保存"/>
+ </form>
+<%- include footer %>
