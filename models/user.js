@@ -4,8 +4,10 @@ var crypto = require('crypto');
 var settings = require('../settings');
 var MongoClient = require('mongodb').MongoClient;
 
-//===================测试mongoose=================
+
+//=================== test mongoose and async =================
 var mongoose = require('mongoose');
+var async = require('async');
 mongoose.connect(settings.connectURL);
 
 var userSchema = new mongoose.Schema({
