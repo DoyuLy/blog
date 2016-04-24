@@ -4,6 +4,22 @@
     <meta charset="utf-8"/>
     <title>blog</title>
     <link rel="stylesheet" href="/stylesheets/style.css"/>
+    <script src="/plugin/kindeditor/kindeditor-all-min.js"></script>
+    <script src="/plugin/kindeditor/lang/zh-CN.js"></script>
+    <script>
+        var editor;
+        KindEditor.ready(function (k) {
+            editor = k.create('textarea', {
+                allowImageUpload: false,
+                //http://kindeditor.net/docs/option.html
+                items: [
+                        'fontname','fontsize','|','forecolor','hilitecolor','bold','italic','underline',
+                        'removeformat','|','justifyleft','justifycenter','justifyright',
+                        'insertorderedlist','insertunorderedlist','|','emoticons','image','link'
+                ]
+            });
+        })
+    </script>
 </head>
 <body>
     <header>

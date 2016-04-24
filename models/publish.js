@@ -74,10 +74,11 @@ Publish.prototype.getTen = function (name, page, cb) {
                     //mongodb.close();
                     db.close();
                     if(err) return cb(err);
-                    docs.forEach(function (doc) {
-                        if(doc)
-                            doc.content = markdown.toHTML(doc.content);
-                    });
+                    //使用kind editor
+                    //docs.forEach(function (doc) {
+                    //    if(doc)
+                    //        doc.content = markdown.toHTML(doc.content);
+                    //});
                     cb(null, docs, total);
                 })
             })
@@ -175,9 +176,9 @@ Publish.prototype.getAll = function (name, cb) {
                 //mongodb.close();
                 db.close();
                 //解析markdown为html
-                docs.forEach(function(doc){
-                   doc.content = markdown.toHTML(doc.content);
-                });
+                //docs.forEach(function(doc){
+                //   doc.content = markdown.toHTML(doc.content);
+                //});
                 err ? cb(err) : cb(null, docs);
             });
         });
@@ -218,11 +219,11 @@ Publish.prototype.getOne = function (name, day, title, cb) {
                         if(err) return cb(err);
                     });
                     //--------end---------
-                    doc.content = markdown.toHTML(doc.content);
-                    if(doc.comments && doc.comments.length)
-                        doc.comments.forEach(function (comment) {
-                            comment.content = comment.content ?  markdown.toHTML(comment.content) :  null;
-                        })
+                    //doc.content = markdown.toHTML(doc.content);
+                    //if(doc.comments && doc.comments.length)
+                    //    doc.comments.forEach(function (comment) {
+                    //        comment.content = comment.content ?  markdown.toHTML(comment.content) :  null;
+                    //    })
                     cb(null, doc);
                 }else cb(null, null);
 

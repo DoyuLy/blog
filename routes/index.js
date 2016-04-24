@@ -306,6 +306,7 @@ module.exports = function(app){
         time = [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('-')
             + ' '
             + [date.getHours(), date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()].join(':'),
+        md5 = crypto.createHash('md5'),
         email_md5 = md5.update(req.body.email.trim().toLowerCase()).digest('hex'),
         head =  'http://cn.gravatar.com/avatar/' + email_md5 + '?s=48';
 
