@@ -17,6 +17,12 @@ var agg = (function(){
         },
         hasNext: function(){
             return index < length;
+        },
+        rewind: function(){
+            index = 0;
+        },
+        current: function(){
+            return data[index];
         }
     }
 }())
