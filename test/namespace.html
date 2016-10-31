@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        var MYAPP = MYAPP || {};
+        MYAPP.namespace = function(ns){
+            var parts = ns.split('.'),
+                    parent = MYAPP,
+                    i;
+            if(parts[0] === 'MYAPP')
+                parts = parts.slice(1);
+            for(i = 0; i < parts.length; i++){
+                if(typeof parent[parts[i]] === 'undefined'){
+                    parent[parts[i]] = {};
+                }
+                parent = parent[parts[i]];
+            }
+            return parent;
+        }
+
+        var module1 = MYAPP.namespace('MYAPP.modules.m1');
+        var module2 = MYAPP.namespace('MYAPP.modules.m2');
+        var longModule = MYAPP.namespace('test.test1.test2.test3.test4');
+    </script>
+</head>
+<body>
+
+</body>
+</html>

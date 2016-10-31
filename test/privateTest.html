@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        function Person(){
+            var sex = 'boy';
+            this.name = 'duyu';
+            this.age = 20;
+            this.arr = [1, 2, 3];
+            this.show = function(){
+                console.log(sex);
+            }
+        }
+
+        Person.prototype.hello = function(){
+            console.log(this.arr);
+        }
+
+        var p = new Person();
+        var p1 = new Person();
+        // 打印静态变量与方法
+        console.log(Person.sex);
+        console.log(Person.name);
+        console.log(Person.age);
+        console.log('--------------------');
+
+        //打印实例变量及方法
+        console.log(p.sex);
+        console.log(p.name);
+        console.log(p.age);
+        p.arr.push(4);
+        console.log(p.arr);
+        p.show();
+        p.hello();
+        console.log(p.hasOwnProperty("show"));//false  原型上的属性与方法不属于对象本身
+        console.log('--------------------');
+        console.log(p1.arr);
+        p1.hello();
+
+        console.log('--------for in---------')
+        //只有sex无法遍历
+        for(var pro in p){
+            console.log('p.' + pro + ' = ' + p[pro]);
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

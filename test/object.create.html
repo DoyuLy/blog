@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script>
+
+    var pt = {
+        say : function(){
+            console.log('saying!');
+        }
+    }
+
+    var o = Object.create(pt, {
+        size: {
+            value: "large",
+            enumerable: true,
+            writable: false,
+            configurable: false
+        },
+        shape: {
+            value: "round",
+            enumerable: true,
+            writable: false,
+            configurable: false
+        }
+    });
+
+    console.log('say' in o); // true
+    console.log(o.hasOwnProperty('say')); // false
+    console.log(o.hasOwnProperty('size'));//true
+    //console.log(o.size);
+    for(var item in o){
+        console.log(item);
+    }
+</script>
+<body>
+
+</body>
+</html>

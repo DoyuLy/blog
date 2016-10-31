@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        //继承方法
+        function extend(child, parent){
+            var F = function(){};
+            F.prototype = parent.prototype;
+            child.prototype = new F();
+            child.prototype.constructor = child;
+            child.uber = parent.prototype;
+
+            if(parent.prototype.constructor == Object.prototype.constructor)
+                parent.constructor = parent;
+        }
+
+        //被装饰者
+        function Bicycle(){};
+        Bicycle.prototype = {
+            constructor: Bicycle,
+            wash: function(){},
+            ride: function(){},
+            getPrice: function(){
+                return 999;
+            }
+        }
+
+        //抽象装饰者
+        function BicycleDecorator(bicycle){
+            this.bicycle = bicycle;
+        }
+        BicycleDecorator.prototype = {
+            constructor:BicycleDecorator,
+            wash : function(){
+                return this.bicycle.wash();
+            },
+            ride : function(){
+                return this.bicycle.ride();
+            },
+            getPrice : function(){
+                return this.bicycle.getPrice();
+            }
+        }
+
+        //具体装饰者
+        var BicycleBell = function(bicycle ){
+            //构造函数继承抽象装饰者
+            BicycleBell.uber.constructor.call(this, bicycle);
+        }
+        extend(BicycleBell, BicycleDecorator);
+        BicycleBell.prototype.bell = function(){
+            console.log("叮!叮!叮!");
+        }
+        BicycleBell.prototype.getPrice = function(){
+            console.log(this.bicycle.getPrice() + 100);
+        }
+
+        //客户端
+        var bicycle = new Bicycle();
+        bicycle = new BicycleBell(bicycle);
+        //即 var bicycle = new BicycleBell(new Bicycle());
+        bicycle.getPrice();
+        bicycle.bell();
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script>
+    function a(){
+        this.a = 1;
+        this.b = [1,2,3];
+        this.show = function(){
+            return this;
+        }
+    }
+    var a1 = new a();
+    var a2 = new a();
+    console.log(a1.show() === a1);// true
+    console.log(a2.show() === a2);// true
+
+    a1.a ++;
+    console.log(a1.a);// 2
+    console.log(a2.a);// 1
+    a1.b.push(4);
+    console.log(a1.b);// [1,2,3,4]
+    console.log(a2.b);// [1,2,3]
+</script>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>test</title>
+    <script>
+        var curryWeight = function(fn){
+            var _weight = [];
+            return function(){
+                if(arguments.length === 0){
+                    return fn.apply(null, _weight);
+                }else{
+                    _weight = _weight.concat(Array.prototype.slice.call(arguments))
+                }
+            }
+        }
+
+        var fishWeight = 0;
+        var addWeight = curryWeight(function() {
+            var i=0, len = arguments.length;
+            for (i; i<len; i+=1) {
+                fishWeight += arguments[i];
+            }
+        });
+        addWeight(2.3);
+        addWeight(6.5);
+        addWeight(1.2);
+        addWeight(2.5, 3);
+        addWeight();
+        console.log(fishWeight);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

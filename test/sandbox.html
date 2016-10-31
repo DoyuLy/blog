@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        function Sandbox(){
+            var args = Array.prototype.slice.call(arguments),
+                    cb = args.pop(),
+                    modules = (args[0] && typeof args[0] === 'string' ? args : args[0]),
+                    i;
+            if(!(this instanceof Sandbox)){
+                return new Sandbox(modules, cb);
+            }
+
+            this.a = 1;
+            this.b = 2;
+
+            if(!modules || modules === '*'){
+                modules = [];
+                for(i in Sandbox.modules){
+                    if(Sandbox.modules.hasOwnProperty(i)){
+                        modules.push(i);
+                    }
+                }
+            }
+
+            for(i = 0; i < modules.length; i++){
+                Sandbox.modules[modules[i]](this);
+            }
+
+            cb && cb(this);
+
+        }
+
+        Sandbox.prototype = {
+            constructor: Sandbox,
+            name: 'sand box',
+            version: '1.0',
+            getName: function(){
+                return this.name;
+            }
+        }
+
+
+        Sandbox('*', function (box) {
+            console.log(box);
+        })
+    </script>
+</head>
+<body>
+
+</body>
+</html>
