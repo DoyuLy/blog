@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        function Sale(price){
+            this.price = price || 100;
+            this.decorators_list = [];
+        }
+        Sale.prototype.getPrice = function(){
+            //return this.price;
+            var price = this.price,
+                    i,
+                    max = this.decorators_list.length,
+                    name;
+            for(i = 0; i < max; i ++){
+                name = this.decorators_list[i];
+                price = Sale.decorators[name].getPrice(price);
+            }
+            return price;
+        }
+
+        Sale.prototype.decorate = function(decorator){
+            this.decorators_list.push(decorator);
+        }
+
+        Sale.decorators = {
+            fedtax: {
+                getPrice: function(price){
+                    return price + price * 5 / 100;
+                }
+            },
+            quebec: {
+                getPrice: function (price) {
+                    return price + price * 7.5 / 100;
+                }
+            },
+            dollar: {
+                getPrice: function(price){
+                    return '$ ' + price.toFixed(2);
+                }
+            },
+            cad: {
+                getPrice: function(price){
+                    return 'CDN$ ' + price.toFixed(2);
+                }
+            }
+        }
+
+        //=====================
+        var sale = new Sale(200);
+        sale.decorate('fedtax');
+        sale.decorate('quebec');
+        sale.decorate('dollar');
+        console.log(sale.getPrice());
+    </script>
+</head>
+<body>
+
+</body>
+</html>
