@@ -73,3 +73,20 @@ validator.validate(data);
 if(validator.hasErrors()){
     console.log(validator.messages.join('\n'));
 }
+
+// 外观模式
+function stop(e){
+    if(typeof e.preventDefault() === 'function'){
+        e.preventDefault();
+    }
+    if(typeof  e.stopPropagation() === 'function'){
+        e.stopPropagation();
+    }
+    //ie
+    if(typeof e.returnValue === 'boolean'){
+        e.returnValue = false;
+    }
+    if(typeof e.cancelBubble === 'boolean'){
+        e.cancelBubble = true;
+    }
+}
